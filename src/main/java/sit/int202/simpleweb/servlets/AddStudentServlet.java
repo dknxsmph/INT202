@@ -17,6 +17,7 @@ import java.io.IOException;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String gpax = request.getParameter("gpax");
@@ -28,7 +29,10 @@ import java.io.IOException;
         Student student = new Student(Integer.valueOf(id), name, Double.valueOf(gpax));
         StudentRepository studentRepository = new StudentRepository();
         studentRepository.save(student);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        request.setAttribute("student", student);
+       // getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/ShowStudentInfo.jsp").forward(request, response);
+
     }
 
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="sit.int202.simpleweb.models.Student" %>
 <%@ page import="java.util.Collection" %><%--
   Created by IntelliJ IDEA.
@@ -17,16 +18,14 @@
 <div class="container">
     <p class="h2">Student List::</p>
     <div class="row">
-        <%
-            Collection<Student> students = (Collection<Student>) request.getAttribute("students");
-            for(Student s : students) {
-        %>
-        <div class="col-2 p-1 m-2 border border-secondary">
-            <div>Student Id: <%=s.getId()%></div>
-            <div>Name: <%=s.getName()%></div>
-            <div>Gpax: <%=s.getGpax()%></div>
-        </div>
-        <%}%>
+        <c:forEach items="${students}" var="student" varStatus="vs">
+            <div class="col-2 p-1 m-2 border border-secondary
+                ${vs.count%2==0?'bg-success.bg-gradient' : 'bg-secondary.bg-gradient'}">
+                <div>Student ID : ${student.id}</div>
+                <div>Name : ${student.name}</div>
+                <div>Gpax  : ${student.gpax}</div>
+            </div>
+        </c:forEach>
     </div>
 </div>
 
